@@ -1,0 +1,57 @@
+<div class="container">
+  <h1>🚀 Test Frontend Angular ↔ Backend</h1>
+  
+  <!-- Test de connexion Backend -->
+  <div class="test-section">
+    <h2>1. Test de connexion Backend</h2>
+    <button (click)="testHealth()" [disabled]="loading.health">
+      {{ loading.health ? 'Test en cours...' : 'Tester la connexion' }}
+    </button>
+    <div *ngIf="healthResult" class="result" [ngClass]="getResultClass(healthResult)">
+      <div [innerHTML]="healthResult"></div>
+    </div>
+  </div>
+
+  <!-- Récupérer les utilisateurs -->
+  <div class="test-section">
+    <h2>2. Récupérer les utilisateurs</h2>
+    <button (click)="getUsers()" [disabled]="loading.users">
+      {{ loading.users ? 'Chargement...' : 'Charger les utilisateurs' }}
+    </button>
+    <div *ngIf="usersResult" class="result" [ngClass]="getResultClass(usersResult)">
+      <div [innerHTML]="usersResult"></div>
+    </div>
+  </div>
+
+  <!-- Créer un utilisateur -->
+  <div class="test-section">
+    <h2>3. Créer un utilisateur</h2>
+    <div class="form-group">
+      <input 
+        type="text" 
+        [(ngModel)]="newUser.username" 
+        placeholder="Nom d'utilisateur"
+        [disabled]="loading.create"
+      />
+      <input 
+        type="email" 
+        [(ngModel)]="newUser.email" 
+        placeholder="Email"
+        [disabled]="loading.create"
+      />
+      <button (click)="createUser()" [disabled]="loading.create || !isFormValid()">
+        {{ loading.create ? 'Création...' : 'Créer' }}
+      </button>
+    </div>
+    <div *ngIf="createResult" class="result" [ngClass]="getResultClass(createResult)">
+      <div [innerHTML]="createResult"></div>
+    </div>
+  </div>
+
+  <!-- Informations sur l'environnement -->
+  <div class="info-section">
+    <h3>📡 Configuration</h3>
+    <p><strong>Environment:</strong> {{ environment.production ? 'Production' : 'Development' }}</p>
+    <p><strong>API URL:</strong> {{ environment.apiUrl }}</p>
+  </div>
+</div>
